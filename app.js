@@ -1,8 +1,12 @@
 const express = require('express');
+const app=express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const postsRoutes= require('./routes/posts');
 
-const app=express();
+app.use(bodyParser.json());
+app.use('/posts',postsRoutes);
+
 const PORT=5000;
 
 mongoose.connect("mongodb+srv://DEVANG23:sGS9G3qDgNVQztE@cluster0.ngb8lfk.mongodb.net/pet_finder",{

@@ -16,10 +16,17 @@ router.get('/',async (req, res) => {
 
 // submits a post
 router.post('/',async (req, res) => {
+    // let longitude =(req.body.longitude)
+    // let latitude= (req.body.latitude)
+    const longitude = 132.677899;
+    const latitude =33.57435;
     const post =new Posts({
-        title:req.body.title,
-        discription:req.body.discription,
+        location: {
+            type:"Point",
+            coordinates:[(longitude),(latitude)]
+        }
     });
+    console.log(post)
     //you can do this
     // post.save()
     // .then((data) => {
@@ -31,7 +38,7 @@ router.post('/',async (req, res) => {
         const savedPost = await post.save();
         res.json(savedPost);
     } catch (error) {
-        res.json({message :err});
+        res.json({message :error.message});
     }
 });
 
@@ -39,6 +46,7 @@ router.post('/',async (req, res) => {
 router.get('/:postId',async (req, res) => {
     try {
         const post=await Posts.findById(req.params.postId);
+        // console.log(post);
         res.json(post);
     } catch (error) {
         res.json({message : error});
